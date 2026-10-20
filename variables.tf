@@ -27,3 +27,9 @@ variable "project_name" {
   type        = string
   default     = "ionos-to-aws-migration"
 }
+
+variable "tf_state_bucket_name" {
+  description = "The name of the S3 bucket to store Terraform state."
+  type        = string
+  default     = "monvillanueva-terraform-state"
+}
