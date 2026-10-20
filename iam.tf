@@ -2,7 +2,7 @@ data "aws_iam_policy_document" "website_bucket_policy_document" {
   statement {
     sid       = "AllowCloudFrontServicePrincipalReadOnly"
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.website_bucket.arn}/*"]
+    resources = ["${aws_s3_bucket.website.arn}/*"]
 
     principals {
       type        = "Service"
@@ -18,6 +18,6 @@ data "aws_iam_policy_document" "website_bucket_policy_document" {
 }
 
 resource "aws_s3_bucket_policy" "website_bucket_policy" {
-  bucket = aws_s3_bucket.website_bucket.id
+  bucket = aws_s3_bucket.website.id
   policy = data.aws_iam_policy_document.website_bucket_policy_document.json
 }
