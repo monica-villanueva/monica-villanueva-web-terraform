@@ -1,11 +1,11 @@
-resource "aws_cloudfront_origin_access_control" "s3_oac" {
+resource "aws_cloudfront_origin_access_control" "s3_website" {
   name                              = "${var.bucket_name}-oac"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
 }
 
-resource "aws_cloudfront_distribution" "s3_distribution" {
+resource "aws_cloudfront_distribution" "website" {
   aliases             = [var.domain_name, "www.${var.domain_name}"]
   enabled             = true
   default_root_object = var.index_document
@@ -14,7 +14,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   origin {
     domain_name              = aws_s3_bucket.website.bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_website.id
     origin_id                = "s3-${aws_s3_bucket.website.id}"
   }
 
@@ -39,7 +39,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = aws_acm_certificate_validation.website_cert_validation.certificate_arn
+    acm_certificate_arn            = aws_acm_certificate_validation.website.certificate_arn
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = "TLSv1.2_2021"
   }

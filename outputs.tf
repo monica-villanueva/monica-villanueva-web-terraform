@@ -1,10 +1,10 @@
 output "acm_domain_validation_options" {
-  value = aws_acm_certificate.website_certificate.domain_validation_options
+  value = aws_acm_certificate.website.domain_validation_options
 }
 
 output "cloudfront_domain_name" {
   description = "CloudFront domain to access the site once DNS/content is in place"
-  value       = aws_cloudfront_distribution.s3_distribution.domain_name
+  value       = aws_cloudfront_distribution.website.domain_name
 }
 
 output "route53_hosted_zone_id" {

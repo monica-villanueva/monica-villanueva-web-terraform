@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "website_bucket_policy_document" {
+data "aws_iam_policy_document" "website_bucket" {
   statement {
     sid       = "AllowCloudFrontServicePrincipalReadOnly"
     actions   = ["s3:GetObject"]
@@ -12,12 +12,13 @@ data "aws_iam_policy_document" "website_bucket_policy_document" {
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.s3_distribution.arn]
+      values   = [aws_cloudfront_distribution.website.arn]
     }
   }
 }
 
-resource "aws_s3_bucket_policy" "website_bucket_policy" {
+resource "aws_s3_bucket_policy" "website" {
+
   bucket = aws_s3_bucket.website.id
-  policy = data.aws_iam_policy_document.website_bucket_policy_document.json
+  policy = data.aws_iam_policy_document.website_bucket.json
 }

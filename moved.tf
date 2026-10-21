@@ -22,3 +22,33 @@ moved {
     from = aws_s3_bucket_server_side_encryption_configuration.website_bucket_encryption
     to   = aws_s3_bucket_server_side_encryption_configuration.website
 }
+
+moved {
+    from = aws_s3_bucket_policy.website_bucket_policy
+    to   = aws_s3_bucket_policy.website
+}
+
+moved {
+    from = aws_iam_policy_document.website_bucket_policy_document
+    to   = aws_iam_policy_document.website_bucket    
+}
+
+moved {
+    from = aws_cloudfront_origin_access_control.s3_oac
+    to   = aws_cloudfront_origin_access_control.s3_website
+}
+
+moved {
+    from = aws_cloudfront_distribution.s3_distribution
+    to   = aws_cloudfront_distribution.website
+}
+
+moved {
+    from = aws_acm_certificate.website_certificate
+    to   = aws_acm_certificate.website
+}
+
+moved {
+    from = aws_acm_certificate_validation.website_cert_validation
+    to   = aws_acm_certificate_validation.website
+}
